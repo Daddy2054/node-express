@@ -1,6 +1,9 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.3
+  orbs:
+  aws-elastic-beanstalk: circleci/aws-elastic-beanstalk@2.0.1
+
 jobs:
   example-job:
     executor: node/default # use the default executor defined within the orb
@@ -8,11 +11,9 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      
-      - run:
-          name: ls
-          command: ls
+
 workflows:
   example-workflow:
     jobs:
       - example-job
+      - aws-elastic-beanstalk/deploy
